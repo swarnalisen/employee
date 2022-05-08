@@ -1,0 +1,18 @@
+version: "3.9"
+services:
+  db:
+    image: mongo:4.2.11-bionic
+    ports:
+      - 27017:27017
+    volumes:
+      - demo:/data/db
+  backend:
+    build: .
+    ports:
+      - 8080:8080
+    depends_on:
+      - db
+    environment:
+      MONGO_URL: mongodb://db:27017
+volumes:
+  demo:
